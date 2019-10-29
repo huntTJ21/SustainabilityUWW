@@ -8,9 +8,12 @@
         mc:Ignorable="d"
         Title="Settings" Height="450" Width="800">
     <Grid>
-        <xctk:PropertyGrid x:Name="prop_Settings" Margin="10,10,10,44" PropertyValueChanged="prop_Settings_PropertyValueChanged"/>
-        <Button x:Name="btn_SaveAndExit" Content="Save and Exit" HorizontalAlignment="Left" Margin="10,380,0,0" VerticalAlignment="Top" Width="120" Height="29"/>
-        <Button x:Name="btn_TestConnection" Content="Test Connection" HorizontalAlignment="Left" Margin="662,384,0,0" VerticalAlignment="Top" Width="120" Height="25" Click="btn_TestConnection_Click"/>
-        <Button x:Name="btn_ResetSettings" Content="Reset Settings" HorizontalAlignment="Left" Margin="522,384,0,0" VerticalAlignment="Top" Width="120" Height="25"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="393*"/>
+            <RowDefinition Height="26*"/>
+        </Grid.RowDefinitions>
+        <xctk:PropertyGrid x:Name="prop_Settings" Margin="10,10,10,18.492" PropertyValueChanged="prop_Settings_PropertyValueChanged" ShowTitle="False" ShowSortOptions="False" ShowSearchBox="False"/>
+        <Button x:Name="btn_SaveAndExit" Content="Save and Exit" Margin="10,0,0,10" Click="btn_SaveAndExit_Click" Grid.RowSpan="2" Height="29" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="120"/>
+        <Button x:Name="btn_TestConnection" Content="Test Connection" Margin="0,0,10,10" Click="btn_TestConnection_Click" Height="29" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="120" Grid.RowSpan="2"/>
     </Grid>
 </Window>
