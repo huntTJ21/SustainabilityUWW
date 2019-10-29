@@ -8,6 +8,7 @@
         mc:Ignorable="d"
         Title="win_MainMenu" Height="450" Width="800">
     <Grid>
-        <Button x:Name="btn_Settings" Content="Settings" HorizontalAlignment="Left" Margin="687,314,0,0" VerticalAlignment="Top" Width="95" Height="95" Click="btn_Settings_Click"/>
+        <Button x:Name="btn_Settings" Content="Settings" Margin="0,0,10,10" VerticalAlignment="Bottom" Height="95" Click="btn_Settings_Click" HorizontalAlignment="Right" Width="95"/>
+        <Button x:Name="btn_Import" Content="Import Data" HorizontalAlignment="Left" Margin="45,45,0,0" Width="95" Height="95" VerticalAlignment="Top" Click="btn_Import_Click"/>
     </Grid>
 </Window>

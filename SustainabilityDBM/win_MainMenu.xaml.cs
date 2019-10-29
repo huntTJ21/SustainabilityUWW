@@ -31,5 +31,10 @@ namespace SustainabilityDBM
             settingsWin.Show();
             this.Hide();
         }
+
+        private void btn_Import_Click(object sender, RoutedEventArgs e)
+        {
+            // TODO Implement Import Button
+        }
     }
 }
