@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SustainabilityDBM", "SustainabilityDBM\SustainabilityDBM.csproj", "{59093694-3627-4BA5-A3BC-992FB000A302}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelLib", "ExcelLib\ExcelLib.csproj", "{4526F9AA-5C6F-4D68-9EB2-5AFECD477174}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{59093694-3627-4BA5-A3BC-992FB000A302}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59093694-3627-4BA5-A3BC-992FB000A302}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59093694-3627-4BA5-A3BC-992FB000A302}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4526F9AA-5C6F-4D68-9EB2-5AFECD477174}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4526F9AA-5C6F-4D68-9EB2-5AFECD477174}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4526F9AA-5C6F-4D68-9EB2-5AFECD477174}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4526F9AA-5C6F-4D68-9EB2-5AFECD477174}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

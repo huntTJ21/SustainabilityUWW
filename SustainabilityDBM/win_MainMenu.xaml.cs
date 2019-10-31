@@ -35,6 +35,10 @@ namespace SustainabilityDBM
         private void btn_Import_Click(object sender, RoutedEventArgs e)
         {
             // TODO Implement Import Button
+            var importWin = new win_Import { WindowStartupLocation = this.WindowStartupLocation };
+            importWin.Closing += delegate { this.Show(); };
+            importWin.Show();
+            this.Hide();
         }
     }
 }

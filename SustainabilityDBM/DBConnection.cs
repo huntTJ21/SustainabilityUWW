@@ -43,7 +43,7 @@ namespace SustainabilityDBM
                 __IsConnected = true;
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
@@ -57,7 +57,7 @@ namespace SustainabilityDBM
                 __IsConnected = false;
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
