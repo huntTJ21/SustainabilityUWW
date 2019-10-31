@@ -35,7 +35,11 @@ namespace SustainabilityDBM
             if (result == true)
             {
                 tb_fileName.Text = dlg.FileName;
-                Workbook wb = new Workbook(dlg.FileName);
+                ExcelControl ec = new ExcelControl();
+                ec.addWorkbook(@"C:\Users\tjhunt\OneDrive - University of Wisconsin-Whitewater\SAGE\SAGE Member Roster 05-19.xlsx");
+                List<Workbook> wb = ec.Workbooks;
+                Console.WriteLine("Break");
+
             }
         }
 

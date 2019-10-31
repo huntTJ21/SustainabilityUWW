@@ -41,8 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Spreadsheet.cs" />
     <Compile Include="Workbook.cs" />
+    <None Include="SpreadsheetOld.cs" />
+    <Compile Include="Spreadsheet.cs" />
+    <Compile Include="ExcelControl.cs" />
+    <Content Include="WorkbookOld.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

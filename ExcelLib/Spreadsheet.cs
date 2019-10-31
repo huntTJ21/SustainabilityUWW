@@ -4,50 +4,44 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Excel = Microsoft.Office.Interop.Excel;
-
 namespace ExcelLib
 {
-    public class Spreadsheet : Excel.WorksheetClass
+    public class Spreadsheet
     {
-        private Excel.Worksheet _sheet;
-        public Spreadsheet(Excel.Worksheet sheet)
+        #region Fields
+
+        #region Private
+        private Workbook _parent;
+        private Excel.Worksheet _sheetObj;
+        #endregion
+
+        #region Public
+        #endregion
+
+        public Spreadsheet(Workbook parent, Excel.Worksheet WorksheetObj)
         {
-            // TODO
-            _sheet = sheet;
-            _sheet.CheckSpelling();
+            // Initialize private fields
+            _parent = parent;
+            _sheetObj = WorksheetObj;
         }
 
-        #region Interface Members
-        public void Activate()
+        #region Accessors
+        public string SheetName()
         {
-            _sheet.Activate();
+            return _sheetObj.Name;
         }
-        public void Copy(object Before = null, object After = null)
+        public ExcelControl ParentApp()
         {
-            if(Equals(Before, null) || Equals(After, null))                // If either before or after are null
-            {
-                if(Equals(Before, null) && Equals(After, null))                // If BOTH Before AND After are null
-                {
-                    _sheet.Copy();
-                }
-                else if(Equals(Before, null))                                  // If just Before is null
-                {
-                    _sheet.Copy(After: After);
-                }
-                else if(Equals(After, null))                                  // If just After is null
-                {
-                    _sheet.Copy(Before: Before);
-                }
-            }
-            else
-            {
-                _sheet.Copy(Before, After);                             // If neithe Before or After is Null
-            }
+            return _parent.getParentApp();
         }
-        public void Calculate()
+
+        public Workbook Workbook()
         {
-            _sheet.Calculate();
+            return _parent;
         }
+
+        #endregion
+
         #endregion
     }
 }
