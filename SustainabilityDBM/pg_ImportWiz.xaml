@@ -5,26 +5,20 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SustainabilityDBM"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="650" d:DesignWidth="650"
       Title="pg_ImportWiz">
 
     <Grid>
-        <ListView x:Name="listView" HorizontalAlignment="Left" Margin="10,10,0,40" Width="200">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <TextBox x:Name="tb_fileName" HorizontalAlignment="Left" Height="26" Margin="320,25,0,0" Text="" VerticalAlignment="Top" Width="165" VerticalContentAlignment="Center"/>
-        <Label x:Name="lb_fileName" Content="File Name:" HorizontalAlignment="Left" Margin="250,25,0,0" VerticalAlignment="Top" Width="65"/>
-        <Button x:Name="btn_fileName" Content="Browse" HorizontalAlignment="Left" Margin="495,25,0,0" VerticalAlignment="Top" Width="75" Height="26" Click="btn_fileName_Click"/>
-        <Button x:Name="btn_listAdd" Margin="50,415,0,0" Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Click="btn_listAdd_Click">
+        <ComboBox x:Name="cb_wbName" HorizontalAlignment="Left" Height="25" Margin="320,25,0,0" Text="" VerticalAlignment="Top" Width="200" VerticalContentAlignment="Center" IsReadOnly="False" IsEditable="True"/>
+        <Label x:Name="lb_wbName" Content="Workbook:" HorizontalAlignment="Left" Margin="245,25,0,0" VerticalAlignment="Top" Width="70"/>
+        <Button x:Name="btn_wbName" Content="Browse" HorizontalAlignment="Left" Margin="525,25,0,0" VerticalAlignment="Top" Width="75" Height="26" Click="btn_wbName_Click"/>
+        <Button x:Name="btn_listAdd" Margin="50,0,0,25" Width="25" HorizontalAlignment="Left" Click="btn_listAdd_Click" Height="25" VerticalAlignment="Bottom">
             <TextBlock Text="+" Margin="-1,-5.,0,0" FontWeight="Bold" FontSize="20" TextAlignment="Center"/>
         </Button>
-        <Button x:Name="btn_listRem" Margin="20,415,0,0" Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Click="btn_listRem_Click">
+        <Button x:Name="btn_listRem" Margin="20,0,0,25" Width="25" HorizontalAlignment="Left" Click="btn_listRem_Click" Height="25" VerticalAlignment="Bottom">
             <TextBlock Text="-" Margin="-1,-5.,0,0" FontWeight="Bold" FontSize="20" TextAlignment="Center"/>
         </Button>
+        <TreeView x:Name="tv_sheetList" Margin="20,25,0,70" HorizontalAlignment="Left" Width="210"/>
 
     </Grid>
 </Page>

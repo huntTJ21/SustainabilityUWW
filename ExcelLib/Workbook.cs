@@ -23,6 +23,7 @@ namespace ExcelLib
         public string FilePath { get; set; }
         public string FileName { get; set; }
         public string FileExtension { get; set; }
+        public string TempPath { get; set; }
         #endregion
 
         #endregion
@@ -30,12 +31,8 @@ namespace ExcelLib
         #region Constructor
         public Workbook(ExcelControl parent, Excel.Workbook WorkbookObj, string fullPath)
         {
-            // Parse the path out into it's parts
-            Directory = Path.GetDirectoryName(fullPath);
-            FileName = Path.GetFileNameWithoutExtension(fullPath);
-            FileExtension = Path.GetExtension(fullPath);
-            FilePath = Path.GetFullPath(fullPath);
-            Console.WriteLine("here");
+            // Set all of the path fields
+            setPath(fullPath);
 
             // Initialize fields
             _WBObj = WorkbookObj;
@@ -62,6 +59,19 @@ namespace ExcelLib
 
         #region Methods
  
+        public override string ToString()
+        {
+            return FileName;
+        }
+
+        public void setPath(string path)
+        {
+            // Parse the path out into it's parts
+            Directory = Path.GetDirectoryName(path);
+            FileName = Path.GetFileNameWithoutExtension(path);
+            FileExtension = Path.GetExtension(path);
+            FilePath = Path.GetFullPath(path);
+        }
         #endregion
     }
 }
