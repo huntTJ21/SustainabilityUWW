@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -49,12 +50,17 @@ namespace ExcelLib
         #endregion
 
         #region Accessors
-
         public ExcelControl getParentApp()
         {
             return _parent;
         }
-
+        public string Name
+        {
+            get
+            {
+                return FileName;
+            }
+        }
         #endregion
 
         #region Methods

@@ -44,7 +44,7 @@ namespace ExcelLib
         #endregion
 
         #region Child Object Constructors
-        public void addWorkbook(string fullPath)
+        public Workbook addWorkbook(string fullPath)
         {
             // Make sure the file exists before moving forward
             if (!File.Exists(fullPath)) { throw new FileNotFoundException(); }
@@ -75,6 +75,8 @@ namespace ExcelLib
                 
                 // Add the Wraper Object to the list
                 Workbooks.Add(newBook);
+
+                return newBook;
             }
             catch(System.Runtime.InteropServices.COMException ex)
             {
@@ -91,6 +93,7 @@ namespace ExcelLib
                 {
                     throw new WorkbookLockedException(true);
                 }
+                return null;
             }
         }
         #endregion
