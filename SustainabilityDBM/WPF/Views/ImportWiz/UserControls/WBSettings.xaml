@@ -1,0 +1,27 @@
+﻿<UserControl 
+    x:Class="SustainabilityDBM.WBSettings"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignWidth="350" 
+    d:DesignHeight="475">
+    <Grid>
+        <Button x:Name="btn_workbook" Content="Workbook" Margin="10,10,0,0" Height="63" VerticalAlignment="Top" HorizontalAlignment="Left" Width="88"/>
+        <TreeView>
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type int}" ItemsSource="{Binding Worksheets}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}"/>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+                <DataTemplate DataType="{x:Type excel:Spreadsheet}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </TreeView.Resources>
+        </TreeView>
+    </Grid>
+</UserControl>

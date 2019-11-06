@@ -34,12 +34,15 @@ namespace SustainabilityDBM
         {
             InitializeComponent();
             ec = new ExcelControl();
+            // Initialize UserControls with their event handlers
+            tv_sheetList.init(tv_sheetList_SelectedItemChanged, btn_listAdd_Click);
         }
         #endregion
 
         #region Methods
 
             #region TreeView
+        
         private HierarchicalDataTemplate GetTemplate()
         {
             // Code adapted from:
@@ -63,10 +66,11 @@ namespace SustainabilityDBM
         }
         private void UpdateTreeView()
         {
-            TreeView TreeView = tv_sheetList;
+            TreeView TreeView = tv_sheetList.TreeView;
             TreeView.ItemTemplate = GetTemplate();
             TreeView.ItemsSource = ec.Workbooks;
         }
+        
             #endregion
 
             #region User Controls
@@ -145,7 +149,7 @@ namespace SustainabilityDBM
             #region TreeView
         private void tv_sheetList_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            var obj = tv_sheetList.SelectedItem;
+            var obj = tv_sheetList.TreeView.SelectedItem;
             if (obj.GetType().Equals(typeof(Workbook)))
             {
                 // Set Active fields to selected item

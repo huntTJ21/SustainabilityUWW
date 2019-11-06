@@ -74,26 +74,35 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="Application\WPF\App.xaml">
+    <ApplicationDefinition Include="WPF\App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Application\WPF\App.xaml.cs">
+    <Compile Include="WPF\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Application\Classes\DBConnection.cs" />
-    <Compile Include="Application\WPF\Pages\ImportWiz\pg_ImportWiz.xaml.cs">
+    <Compile Include="Classes\DBConnection.cs" />
+    <Compile Include="WPF\Views\ImportWiz\Pages\pg_ImportWiz.xaml.cs">
       <DependentUpon>pg_ImportWiz.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Application\WPF\Pages\ImportWiz\win_Import.xaml.cs">
+    <Compile Include="WPF\Views\ImportWiz\UserControls\WorkbookTreeView.xaml.cs">
+      <DependentUpon>WorkbookTreeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\Views\ImportWiz\win_Import.xaml.cs">
       <DependentUpon>win_Import.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Application\WPF\Pages\MainMenu\win_MainMenu.xaml.cs">
+    <Compile Include="WPF\Views\MainMenu\win_MainMenu.xaml.cs">
       <DependentUpon>win_MainMenu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Application\WPF\Pages\Settings\win_Settings.xaml.cs">
+    <Compile Include="WPF\Views\Settings\win_Settings.xaml.cs">
       <DependentUpon>win_Settings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\Views\ImportWiz\UserControls\WBSettings.xaml.cs">
+      <DependentUpon>WBSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\Views\ImportWiz\UserControls\WSSettings.xaml.cs">
+      <DependentUpon>WSSettings.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -114,31 +123,43 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Application\Config\packages.config" />
+    <None Include="Config\packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Application\Config\App.config" />
+    <None Include="Config\App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Application\WPF\Pages\ImportWiz\pg_ImportWiz.xaml">
+    <Page Include="WPF\Views\ImportWiz\Pages\pg_ImportWiz.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Application\WPF\Pages\ImportWiz\win_Import.xaml">
+    <Page Include="WPF\Views\ImportWiz\UserControls\WorkbookTreeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Application\WPF\Pages\MainMenu\win_MainMenu.xaml">
+    <Page Include="WPF\Views\ImportWiz\win_Import.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Application\WPF\Pages\Settings\win_Settings.xaml">
+    <Page Include="WPF\Views\MainMenu\win_MainMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WPF\Views\Settings\win_Settings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WPF\Views\ImportWiz\UserControls\WBSettings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\Views\ImportWiz\UserControls\WSSettings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -147,6 +168,11 @@
       <Name>ExcelLib</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="TextFile1.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

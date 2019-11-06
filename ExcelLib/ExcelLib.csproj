@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Highlight.cs" />
     <Compile Include="Workbook.cs" />
     <None Include="SpreadsheetOld.cs" />
     <Compile Include="Spreadsheet.cs" />

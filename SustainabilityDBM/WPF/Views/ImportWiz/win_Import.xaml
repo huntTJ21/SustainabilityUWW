@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="win_Import" Height="650" Width="850">
     <Grid>
-        <Frame x:Name="frame" Source="pg_ImportWiz.xaml" Margin="10"/>
+        <Frame x:Name="frame" Source=".\Pages\pg_ImportWiz.xaml" Margin="10"/>
 
     </Grid>
 </Window>

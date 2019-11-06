@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace SustainabilityDBM
 {
     /// <summary>
-    /// Interaction logic for uc_WBSettings.xaml
+    /// Interaction logic for uc_WSSettings.xaml
     /// </summary>
-    public partial class uc_WBSettings : UserControl
+    public partial class WSSettings : UserControl
     {
-        public uc_WBSettings()
+        public WSSettings()
         {
             InitializeComponent();
         }
