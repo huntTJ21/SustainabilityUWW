@@ -74,25 +74,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <ApplicationDefinition Include="Application\WPF\App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="App.xaml.cs">
+    <Compile Include="Application\WPF\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DBConnection.cs" />
-    <Compile Include="pg_ImportWiz.xaml.cs">
+    <Compile Include="Application\Classes\DBConnection.cs" />
+    <Compile Include="Application\WPF\Pages\ImportWiz\pg_ImportWiz.xaml.cs">
       <DependentUpon>pg_ImportWiz.xaml</DependentUpon>
     </Compile>
-    <Compile Include="win_Import.xaml.cs">
+    <Compile Include="Application\WPF\Pages\ImportWiz\win_Import.xaml.cs">
       <DependentUpon>win_Import.xaml</DependentUpon>
     </Compile>
-    <Compile Include="win_MainMenu.xaml.cs">
+    <Compile Include="Application\WPF\Pages\MainMenu\win_MainMenu.xaml.cs">
       <DependentUpon>win_MainMenu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="win_Settings.xaml.cs">
+    <Compile Include="Application\WPF\Pages\Settings\win_Settings.xaml.cs">
       <DependentUpon>win_Settings.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -114,29 +114,29 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
+    <None Include="Application\Config\packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="Application\Config\App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="pg_ImportWiz.xaml">
+    <Page Include="Application\WPF\Pages\ImportWiz\pg_ImportWiz.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="win_Import.xaml">
+    <Page Include="Application\WPF\Pages\ImportWiz\win_Import.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="win_MainMenu.xaml">
+    <Page Include="Application\WPF\Pages\MainMenu\win_MainMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="win_Settings.xaml">
+    <Page Include="Application\WPF\Pages\Settings\win_Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -147,5 +147,6 @@
       <Name>ExcelLib</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
