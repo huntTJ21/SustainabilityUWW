@@ -8,20 +8,12 @@
     d:DesignWidth="350" 
     d:DesignHeight="475">
     <Grid>
-        <Button x:Name="btn_workbook" Content="Workbook" Margin="10,10,0,0" Height="63" VerticalAlignment="Top" HorizontalAlignment="Left" Width="88"/>
-        <TreeView>
-            <TreeView.Resources>
-                <HierarchicalDataTemplate DataType="{x:Type int}" ItemsSource="{Binding Worksheets}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Name}"/>
-                    </StackPanel>
-                </HierarchicalDataTemplate>
-                <DataTemplate DataType="{x:Type excel:Spreadsheet}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Name}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </TreeView.Resources>
-        </TreeView>
+        <Button x:Name="btn_workbook" Content="Workbook" Margin="47,310,0,0" Height="63" VerticalAlignment="Top" HorizontalAlignment="Left" Width="88"/>
+        <ListView Margin="10,10,223,258">
+
+        </ListView>
+        <ComboBox Margin="143,123,0,0" HorizontalAlignment="Left" Width="90" Height="37" VerticalAlignment="Top">
+        </ComboBox>
+        <ComboBox Margin="143,32,0,0" HorizontalAlignment="Left" Width="90" Height="37" VerticalAlignment="Top"/>
     </Grid>
 </UserControl>
