@@ -107,6 +107,12 @@ namespace SustainabilityDBM
             [Category("Database Connection")]
             [DisplayName("Database Name")]
             public string D_DBName { get; set; } = "DBName";
+            
+            [Browsable(true)]
+            [Description("Location to store temporary Excel files.")]
+            [Category("Excel")]
+            [DisplayName("Temp File Path")]
+            public string D_TempPath { get; set; } = "TempPath";
             #endregion
 
             #region Functions
@@ -120,6 +126,7 @@ namespace SustainabilityDBM
                         case "ServerURL": return D_ServerURL;
                         case "DBName": return D_DBName;
                         case "Authentication": return Enum.GetName(typeof(AuthTypes), D_Authentication);
+                        case "TempPath": return D_TempPath;
                         default: throw new KeyNotFoundException();
                     }
                 }
@@ -133,6 +140,8 @@ namespace SustainabilityDBM
                             break;
                         case "Authentication": Enum.TryParse(value.ToString(), out AuthTypes temp);
                             D_Authentication = temp;
+                            break;
+                        case "TempPath": D_TempPath = value.ToString();
                             break;
                         default: throw new KeyNotFoundException();
                     }
@@ -149,7 +158,7 @@ namespace SustainabilityDBM
                 }
             }
 
-            #region JSON Handling
+                #region JSON Handling
             public bool saveJSON(string path)
             {
                 try
@@ -160,6 +169,7 @@ namespace SustainabilityDBM
                     saveObj.ServerURL = D_ServerURL;
                     saveObj.Authentication = Enum.GetName(typeof(AuthTypes), D_Authentication); // Have to convert the ENUM value (0 or 1) to its name for storage
                     saveObj.DBName = D_DBName;
+                    saveObj.TempPath = D_TempPath;
 
                     // Write generated JSON to file specified by path variable
                     File.WriteAllText(path, saveObj.ToString());
@@ -179,6 +189,7 @@ namespace SustainabilityDBM
                 if (!json.ContainsKey("ServerURL")){ isCorrupt = true; }
                 if (!json.ContainsKey("Authentication")){ isCorrupt = true; }
                 if (!json.ContainsKey("DBName")){ isCorrupt = true; }
+                if (!json.ContainsKey("TempPath")) { isCorrupt = true; }
                 return !isCorrupt;
             }
             public bool loadJSON(string path)
@@ -194,9 +205,8 @@ namespace SustainabilityDBM
                     D_DBName = settingsJSON.Value<String>("DBName");
                     Enum.TryParse(settingsJSON.Value<String>("Authentication"), out AuthTypes authTemp);
                     D_Authentication = authTemp;
+                    D_TempPath = settingsJSON.Value<String>("TempPath");
 
-                    //dynamic test = JsonConvert.DeserializeObject(File.ReadAllText(path));
-                    MessageBox.Show("JSON Loaded!");
                     return true;
                 }
                 catch (FileNotFoundException)
@@ -230,7 +240,7 @@ namespace SustainabilityDBM
                     return saveJSON(path);
                 }
             }
-            #endregion
+                #endregion
 
             #endregion
         }
@@ -252,6 +262,30 @@ namespace SustainabilityDBM
         #endregion
 
         #region Functions
+        /*
+        public string DBName
+        {
+            get
+            {
+                return spg["DBName"];
+            }
+            set
+            {
+                spg["DBName"] = value.ToString();
+            }
+        }
+        public string ServerURL
+        {
+            get
+            {
+                return spg["DBName"];
+            }
+            set
+            {
+                spg["DBName"] = value.ToString();
+            }
+        }
+        */
         #endregion
 
         #region Event Listeners
@@ -274,7 +308,6 @@ namespace SustainabilityDBM
                 spg[propName] = prop.Value.ToString();
             }
         }
-        #endregion
 
         private void btn_SaveAndExit_Click(object sender, RoutedEventArgs e)
         {
@@ -286,5 +319,6 @@ namespace SustainabilityDBM
             spg.saveJSON(settingsFilePath);
             this.Close();
         }
+        #endregion
     }
 }

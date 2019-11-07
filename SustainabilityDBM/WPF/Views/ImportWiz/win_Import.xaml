@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SustainabilityDBM"
         mc:Ignorable="d"
-        Title="win_Import" Height="450" Width="800">
+        Title="win_Import" Height="650" Width="850">
     <Grid>
-        <Frame x:Name="frame" Source="pg_ImportWiz.xaml" Margin="10"/>
+        <Frame x:Name="frame" Source=".\Pages\pg_ImportWiz.xaml" Margin="10"/>
 
     </Grid>
 </Window>

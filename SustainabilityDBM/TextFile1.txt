@@ -1,0 +1,24 @@
+﻿<TreeView x:Name="tv_sheetList" Margin="20,25,0,70" HorizontalAlignment="Left" Width="260" SelectedItemChanged="tv_sheetList_SelectedItemChanged">
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type excel:Workbook}" ItemsSource="{Binding Worksheets}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}"/>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+                <DataTemplate DataType="{x:Type excel:Spreadsheet}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </TreeView.Resources>
+        </TreeView>
+
+<Button x:Name="btn_listAdd" Margin="50,0,0,25" Width="25" HorizontalAlignment="Left" Click="btn_listAdd_Click" Height="25" VerticalAlignment="Bottom">
+	<TextBlock Text="+" Margin="-1,-5.,0,0" FontWeight="Bold" FontSize="20" TextAlignment="Center"/>
+</Button>
+<Button x:Name="btn_listRem" Margin="20,0,0,25" Width="25" HorizontalAlignment="Left" Click="btn_listRem_Click" Height="25" VerticalAlignment="Bottom">
+	<TextBlock Text="-" Margin="-1,-5.,0,0" FontWeight="Bold" FontSize="20" TextAlignment="Center"/>
+</Button>
+<Label x:Name="lb_treeView" Content="Source Files:" Margin="20,0,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="80"/>
+
+0 = Wite = 
