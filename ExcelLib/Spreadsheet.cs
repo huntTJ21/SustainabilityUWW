@@ -37,9 +37,12 @@ namespace ExcelLib
                 return _sheetObj.Name;
             }
         }
-        public ExcelControl ParentApp()
+        public ExcelControl Control
         {
-            return _parent.getParentApp();
+            get
+            {
+                return _parent.Control;
+            }
         }
         public Workbook Workbook
         {
@@ -48,10 +51,55 @@ namespace ExcelLib
                 return _parent;
             }
         }
+        public Cell this[int row, int col]
+        {
+            get
+            {
+                return new Cell((Excel.Range)_sheetObj.Cells[row, col]);
+            }
+        }
+        public Cell[,] this[int r1, int c1, int r2, int c2]
+        {
+            get
+            {
+                // Make it so that r1 and c1 are the larger of the two numbers
+                if (r2 > r1)
+                {
+                    int t = r1;
+                    r1 = r2;
+                    r2 = t;
+                }
+                if (c2 > c1)
+                {
+                    int t = c1;
+                    c1 = c2;
+                    c2 = t;
+                }
+                // Get number of rows and cols               
+                int n_rows = r1 - r2;
+                int n_cols = r1 - r2;
 
+                // Calculate size of Cell array
+                Cell[,] cells = new Cell[n_rows, n_cols];
+
+                // Retrieve cell objects and put them into the Cell array
+                for (int r = r1; r <= r2; r++)
+                {
+                    for (int c = c1; c <= c2; c++)
+                    {
+                        // Calculate array index
+                        cells[r - r1, c - c1] = this[r, c];
+                    }
+                }
+
+                // Return the Cell array
+                return cells;
+            }
+        }
         #endregion
 
         #region Methods
+
         public override string ToString()
         {
             return Name;

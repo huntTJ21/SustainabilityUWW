@@ -30,10 +30,11 @@ namespace ExcelLib
         #endregion
 
         #region Constructor
-        public Workbook(ExcelControl parent, Excel.Workbook WorkbookObj, string fullPath)
+        public Workbook(ExcelControl parent, Excel.Workbook WorkbookObj, string fullPath = null)
         {
-            // Set all of the path fields
-            setPath(fullPath);
+            // Check if path was given and if so, set all of the path fields 
+            if (fullPath != null)
+                setPath(fullPath);
 
             // Initialize fields
             _WBObj = WorkbookObj;
@@ -50,9 +51,12 @@ namespace ExcelLib
         #endregion
 
         #region Accessors
-        public ExcelControl getParentApp()
+        public ExcelControl Control
         {
-            return _parent;
+            get
+            {
+                return _parent;
+            }
         }
         public string Name
         {

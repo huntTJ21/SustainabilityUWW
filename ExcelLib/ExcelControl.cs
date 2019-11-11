@@ -96,6 +96,17 @@ namespace ExcelLib
                 return null;
             }
         }
+        public Workbook newWorkbook()
+        {
+            // Create the COM object and store it in a Wrapper Class
+            Excel.Workbook WBObj = App.Workbooks.Add();
+            Workbook newBook = new Workbook(this, WBObj);
+
+            // Add the Wraper Object to the list
+            Workbooks.Add(newBook);
+
+            return newBook;
+        }
         #endregion
 
         #region Methods
