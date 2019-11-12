@@ -155,6 +155,17 @@ namespace ExcelLib
         #endregion
 
         #region Methods
+        public override bool Equals(object obj)
+        {
+            if(obj.GetType() == typeof(Color))
+            {
+                Color cObj = (Color)obj;
+                if (cObj.R == R && cObj.G == G && cObj.B == B)
+                    return true;
+                else return false;
+            }
+            else return base.Equals(obj);
+        }
         public override string ToString()
         {
             string str = string.Format("({0},{1},{2})", R, G, B);
@@ -232,6 +243,7 @@ namespace ExcelLib
         #endregion
 
         #region Methods
+
         #endregion
 
     }

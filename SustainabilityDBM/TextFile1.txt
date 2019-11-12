@@ -21,4 +21,10 @@
 </Button>
 <Label x:Name="lb_treeView" Content="Source Files:" Margin="20,0,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="80"/>
 
-0 = Wite = 
+ using ExcelLib;
+ using Excel = Microsoft.Office.Interop.Excel;
+ ExcelControl ec = new ExcelControl();
+ ec.newWorkbook();
+ Workbook book = ec.Workbooks[0];
+ Spreadsheet sheet = book.Worksheets[0];
+ sheet.Control.App.Visible = true;

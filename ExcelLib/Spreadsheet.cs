@@ -12,7 +12,7 @@ namespace ExcelLib
 
         #region Private
         private Workbook _parent;
-        private Excel.Worksheet _sheetObj;
+        public Excel.Worksheet _sheetObj;
         #endregion
 
         #region Public
@@ -94,6 +94,32 @@ namespace ExcelLib
 
                 // Return the Cell array
                 return cells;
+            }
+        }
+        public List<Color> ColorList
+        {
+            get
+            {
+                List<Color> cl = new List<Color>();
+                List<Cell> Cells = new List<Cell>();
+
+                foreach(Excel.Range cell in _sheetObj.UsedRange)
+                {
+                    if ((double)cell.Interior.Color != Colors.White.ToDouble())
+                    {
+                        Cells.Add(new Cell(cell));
+                    }
+                }
+
+                foreach(Cell cell in Cells)
+                {
+                    if (!cl.Contains(cell.Color))
+                    {
+                        cl.Add(cell.Color);
+                    }
+                }
+
+                return cl;
             }
         }
         #endregion
