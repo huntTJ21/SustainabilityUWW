@@ -43,6 +43,38 @@ namespace ExcelLib
         }
         #endregion
 
+        #region Accessors
+        public Workbook ActiveBook
+        {
+            get
+            {
+                foreach(Workbook wb in Workbooks)
+                {
+                    if (wb.isActive())
+                        return wb;
+                }
+                return null;
+            }
+        }
+        public Spreadsheet ActiveSheet
+        {
+            get
+            {
+                if(ActiveBook != null) {
+                    foreach (Spreadsheet s in ActiveBook.Worksheets)
+                    {
+                        if (s.isActive())
+                            return s;
+                    }
+                }
+                return null;
+            }
+        }
+        #endregion
+
+
+        #region Methods
+
         #region Child Object Constructors
         public Workbook addWorkbook(string fullPath)
         {
@@ -50,11 +82,11 @@ namespace ExcelLib
             if (!File.Exists(fullPath)) { throw new FileNotFoundException(); }
 
             // Make sure that the file is not already opened
-            for(int i = 0; i < Workbooks.Count; i++)
+            for (int i = 0; i < Workbooks.Count; i++)
             {
                 // If the file being attempted to open is already opened by this instance, 
                 //  throw a WorkbookLockedException with the index of the opened workbook.
-                if(Workbooks[i].FilePath == Path.GetFullPath(fullPath))
+                if (Workbooks[i].FilePath == Path.GetFullPath(fullPath))
                 {
                     throw new WorkbookLockedException(this, i);
                 }
@@ -72,13 +104,13 @@ namespace ExcelLib
                 Workbook newBook = new Workbook(this, WBObj, tempPath);             // Load the workbook from the temp file to avoid file locks
                 newBook.setPath(fullPath);                                          // set the path to the original path instead of the temp path
                 newBook.TempPath = Path.GetFullPath(tempPath);                      // Set the tempPath variable for future reference.
-                
+
                 // Add the Wraper Object to the list
                 Workbooks.Add(newBook);
 
                 return newBook;
             }
-            catch(System.Runtime.InteropServices.COMException ex)
+            catch (System.Runtime.InteropServices.COMException ex)
             {
                 // Known Error Codes
                 int FileAlreadyOpen = -2146827284;
@@ -89,7 +121,7 @@ namespace ExcelLib
                     WBObj.Close();
                 }
 
-                if(ex.ErrorCode == FileAlreadyOpen)
+                if (ex.ErrorCode == FileAlreadyOpen)
                 {
                     throw new WorkbookLockedException(true);
                 }
@@ -108,9 +140,6 @@ namespace ExcelLib
             return newBook;
         }
         #endregion
-
-        #region Methods
-
         private string createTempWBFile(string fullPath)
         {
             string tempPath = @".\ExcelTemp";
@@ -121,7 +150,6 @@ namespace ExcelLib
             File.Copy(fullPath, newPath);
             return newPath;
         }
-
         #endregion
     }
 

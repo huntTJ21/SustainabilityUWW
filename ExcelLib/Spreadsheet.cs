@@ -125,7 +125,14 @@ namespace ExcelLib
         #endregion
 
         #region Methods
-
+        public void Activate()
+        {
+            _sheetObj.Activate();
+        }
+        public bool isActive()
+        {
+            return _sheetObj == _parent.Control.App.ActiveSheet;
+        }
         public override string ToString()
         {
             return Name;

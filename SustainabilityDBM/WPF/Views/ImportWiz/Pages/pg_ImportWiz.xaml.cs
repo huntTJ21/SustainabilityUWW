@@ -23,9 +23,27 @@ namespace SustainabilityDBM
     {
         #region Fields
 
-        ExcelControl ec;
-        Workbook ActiveBook;
-        Spreadsheet ActiveSheet;
+        ExcelControl Control
+        {
+            get
+            {
+                return Global.Control;
+            }
+        }
+        Workbook ActiveBook
+        {
+            get
+            {
+                return Global.ActiveBook;
+            }
+        }
+        Spreadsheet ActiveSheet
+        {
+            get
+            {
+                return Global.ActiveSheet;
+            }
+        }
 
         #endregion
 
@@ -33,7 +51,7 @@ namespace SustainabilityDBM
         public pg_ImportWiz()
         {
             InitializeComponent();
-            ec = new ExcelControl();
+
             // Initialize UserControls with their event handlers
             tv_sheetList.init(tv_sheetList_SelectedItemChanged, btn_listAdd_Click);
         }
@@ -68,7 +86,7 @@ namespace SustainabilityDBM
         {
             TreeView TreeView = tv_sheetList.TreeView;
             TreeView.ItemTemplate = GetTemplate();
-            TreeView.ItemsSource = ec.Workbooks;
+            TreeView.ItemsSource = Control.Workbooks;
         }
         
             #endregion
@@ -93,7 +111,8 @@ namespace SustainabilityDBM
         {
             if (show)
             {
-                // Set UserControl up for ActiveShee
+                // Set UserControl up for ActiveSheet
+                uc_Worksheet.populateListView();
                 
                 // Set UserControl Visibility to visible
                 uc_Worksheet.Visibility = Visibility.Visible;
@@ -123,8 +142,8 @@ namespace SustainabilityDBM
             {
                 try
                 {
-                    ActiveBook = ec.addWorkbook(dlg.FileName);
-                    //LoadComboBoxData();
+                    Workbook openBook = Control.addWorkbook(dlg.FileName);
+                    openBook.Activate();
                     UpdateTreeView();
                 }
                 catch (WorkbookLockedException ex)
@@ -153,8 +172,11 @@ namespace SustainabilityDBM
             if (obj.GetType().Equals(typeof(Workbook)))
             {
                 // Set Active fields to selected item
-                ActiveBook = (Workbook)obj;
-                ActiveSheet = null;
+                //ActiveBook = (Workbook)obj;
+                //ActiveSheet = null;
+                Workbook book = (Workbook)obj;
+                book.Control.App.Visible = true;
+                book.Activate();
 
                 // Set textboxes to their correct values
                 tb_wbName.Text = ActiveBook.FileName;
@@ -168,8 +190,11 @@ namespace SustainabilityDBM
             else if (obj.GetType().Equals(typeof(Spreadsheet)))
             {
                 // Set Active fields to selected item
-                ActiveSheet = (Spreadsheet)obj;
-                ActiveBook = ActiveSheet.Workbook;
+                //ActiveSheet = (Spreadsheet)obj;
+                //ActiveBook = ActiveSheet.Workbook;
+                Spreadsheet sheet = (Spreadsheet)obj;
+                sheet.Control.App.Visible = true;
+                sheet.Activate();
 
                 // Set textboxes to their correct values
                 tb_wbName.Text = ActiveBook.FileName;
@@ -181,8 +206,17 @@ namespace SustainabilityDBM
                 ShowWorksheetControls(true);
             }
         }
-            #endregion
+        #endregion
 
         #endregion
+
+        private void uc_Worksheet_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            WSSettings s = (WSSettings)sender;
+            if (s.Visibility == Visibility.Visible)
+            {
+                s.populateListView();
+            }
+        }
     }
 }

@@ -22,6 +22,14 @@ namespace SustainabilityDBM
         public win_Import()
         {
             InitializeComponent();
+            
+            // Initialize the Global ExelControl
+            Global.Control = new ExcelLib.ExcelControl();
+        }
+
+        ~win_Import()
+        {
+            Global.Control.App.Quit();
         }
     }
 }

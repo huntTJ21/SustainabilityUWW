@@ -136,7 +136,7 @@ namespace ExcelLib
         #endregion
 
         #region Constructors
-        
+
         public Color(int R, int G, int B)
         {
             this.R = R;
@@ -165,6 +165,10 @@ namespace ExcelLib
                 else return false;
             }
             else return base.Equals(obj);
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
         public override string ToString()
         {

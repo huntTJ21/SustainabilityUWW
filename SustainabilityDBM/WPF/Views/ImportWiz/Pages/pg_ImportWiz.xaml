@@ -29,6 +29,7 @@
             Height="auto" 
             Margin="285,70,10,10"
             Visibility="Collapsed"
+            IsVisibleChanged="uc_Worksheet_IsVisibleChanged"
             />
     </Grid>
 </Page>

@@ -65,10 +65,29 @@ namespace ExcelLib
                 return FileName;
             }
         }
+        public Spreadsheet ActiveSheet
+        {
+            get
+            {
+                foreach(Spreadsheet sheet in Worksheets)
+                {
+                    if (sheet.isActive())
+                        return sheet;
+                }
+                return null;
+            }
+        }
         #endregion
 
         #region Methods
- 
+        public void Activate()
+        {
+            _WBObj.Activate();
+        }
+        public bool isActive()
+        {
+            return _parent.App.ActiveWorkbook == _WBObj;
+        }
         public override string ToString()
         {
             return FileName;
