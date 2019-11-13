@@ -51,5 +51,11 @@ namespace SustainabilityDBM
         {
             lv_colors.ItemsSource = Global.ActiveSheet.ColorList;
         }
+
+        private void btn_update_Click(object sender, RoutedEventArgs e)
+        {
+            Global.ActiveSheet.update();
+            populateListView();
+        }
     }
 }

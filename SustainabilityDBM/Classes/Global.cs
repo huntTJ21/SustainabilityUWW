@@ -29,5 +29,10 @@ namespace SustainabilityDBM
         #region Database Objects
         public static List<string> Fields { get; set; }
         #endregion
+
+        public static void init()
+        {
+            Control = null;
+        }
     }
 }

@@ -175,7 +175,6 @@ namespace ExcelLib
             string str = string.Format("({0},{1},{2})", R, G, B);
             return str;
         }
-
         public double ToDouble()
         {
             byte[] b = new byte[4];
@@ -185,6 +184,10 @@ namespace ExcelLib
             b[3] = 0;
             int i = BitConverter.ToInt32(b, 0);
             return i;
+        }
+        public static Color getColor(Excel.Range cell)
+        {
+            return new Color((double)cell.Interior.Color);
         }
         #endregion
     }

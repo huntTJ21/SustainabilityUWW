@@ -13,5 +13,9 @@ namespace SustainabilityDBM
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            //Global.init();
+        }
     }
 }

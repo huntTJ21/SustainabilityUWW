@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,9 +23,18 @@ namespace SustainabilityDBM
         public win_Import()
         {
             InitializeComponent();
-            
+
             // Initialize the Global ExelControl
-            Global.Control = new ExcelLib.ExcelControl();
+            if (Global.Control == null)
+                Global.Control = new ExcelLib.ExcelControl();
+
+            Closing += new CancelEventHandler(cleanupBeforeClose);
+        }
+
+        public void cleanupBeforeClose(object sender, EventArgs e)
+        {
+            //frame.Content = null;
+            Global.Control.CleanupAndExit();
         }
 
         ~win_Import()

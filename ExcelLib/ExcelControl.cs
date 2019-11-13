@@ -34,12 +34,7 @@ namespace ExcelLib
 
         ~ExcelControl()
         {
-            // Make sure to quit the COM App or it will stay on in the background,
-            //  causing file read errors and memory leaks.
-            App.Quit();
-
-            // Make sure to clear temp directory
-            Directory.Delete(@".\ExcelTemp", true);
+            
         }
         #endregion
 
@@ -100,10 +95,9 @@ namespace ExcelLib
             try
             {
                 // Create the COM object and store it in a Wrapper Class
-                WBObj = App.Workbooks.Open(fullPath);
-                Workbook newBook = new Workbook(this, WBObj, tempPath);             // Load the workbook from the temp file to avoid file locks
-                newBook.setPath(fullPath);                                          // set the path to the original path instead of the temp path
-                newBook.TempPath = Path.GetFullPath(tempPath);                      // Set the tempPath variable for future reference.
+                Workbook newBook = new Workbook(this, tempPath);            // Load the workbook from the temp file to avoid file locks
+                newBook.setPath(fullPath);                                  // set the path to the original path instead of the temp path
+                newBook.TempPath = tempPath;                                // Set the tempPath variable for future reference.
 
                 // Add the Wraper Object to the list
                 Workbooks.Add(newBook);
@@ -143,12 +137,22 @@ namespace ExcelLib
         private string createTempWBFile(string fullPath)
         {
             string tempPath = @".\ExcelTemp";
-            string fileName = Path.GetFileNameWithoutExtension(fullPath);
-            string fileExt = Path.GetExtension(fullPath);
-            fileName += "_temp" + fileExt;
+            //string fileName = Path.GetFileNameWithoutExtension(fullPath);
+            //string fileExt = Path.GetExtension(fullPath);
+            //fileName += "_temp" + fileExt;
+            string fileName = Path.GetFileName(fullPath);
             string newPath = Path.Combine(tempPath, fileName);
             File.Copy(fullPath, newPath);
-            return newPath;
+            return Path.GetFullPath(newPath);
+        }
+        public void CleanupAndExit()
+        {
+            // Make sure to quit the COM App or it will stay on in the background,
+            //  causing file read errors and memory leaks.
+            App.Quit();
+            // Make sure to clear temp directory
+            while (App.Quitting) { }
+            Directory.Delete(@".\ExcelTemp", true);
         }
         #endregion
     }
