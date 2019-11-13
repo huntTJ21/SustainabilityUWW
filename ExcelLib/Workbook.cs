@@ -48,6 +48,29 @@ namespace ExcelLib
             }
 
         }
+
+        public Workbook(ExcelControl parent, string fullPath)
+        {
+            // Initialize fields
+            setPath(fullPath);
+            _WBObj = parent.App.Workbooks.Open(fullPath);
+            _parent = parent;
+
+            Worksheets = new List<Spreadsheet>();
+
+            // Populate Spreadsheet List
+            foreach (Excel.Worksheet sheet in _WBObj.Worksheets)
+            {
+                Worksheets.Add(new Spreadsheet(this, sheet));
+            }
+
+            // Add event handler
+            //Control.App.WorkbookBeforeClose += WorkbookBeforeCloseHandler;
+            void WorkbookBeforeCloseHandler(Excel.Workbook Wb, ref bool Cancel)
+            {
+                //Cancel = true;
+            }
+        }
         #endregion
 
         #region Accessors

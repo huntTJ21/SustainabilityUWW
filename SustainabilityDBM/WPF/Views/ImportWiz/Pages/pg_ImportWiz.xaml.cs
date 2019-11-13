@@ -54,6 +54,8 @@ namespace SustainabilityDBM
 
             // Initialize UserControls with their event handlers
             tv_sheetList.init(tv_sheetList_SelectedItemChanged, btn_listAdd_Click);
+
+            Unloaded += new RoutedEventHandler(cleanupBeforeClose);
         }
         #endregion
 
@@ -87,6 +89,27 @@ namespace SustainabilityDBM
             TreeView TreeView = tv_sheetList.TreeView;
             TreeView.ItemTemplate = GetTemplate();
             TreeView.ItemsSource = Control.Workbooks;
+        }
+
+        private void UnbindTreeView()
+        {
+            // Unbind TreeView so that it doesn't error when the Control closes
+            try
+            {
+                /*
+                Dispatcher.Invoke(() =>
+                {
+                    TreeView TreeView = tv_sheetList.TreeView;
+                    TreeView.ItemsSource = null;
+                });
+                */
+                TreeView TreeView = tv_sheetList.TreeView;
+                TreeView.ItemsSource = null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
         
             #endregion
@@ -125,6 +148,11 @@ namespace SustainabilityDBM
         }
 
         #endregion
+
+        public void cleanupBeforeClose(object sender, EventArgs e)
+        {
+            UnbindTreeView();
+        }
 
         #endregion
 
@@ -209,14 +237,5 @@ namespace SustainabilityDBM
         #endregion
 
         #endregion
-
-        private void uc_Worksheet_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            WSSettings s = (WSSettings)sender;
-            if (s.Visibility == Visibility.Visible)
-            {
-                s.populateListView();
-            }
-        }
     }
 }
