@@ -10,7 +10,7 @@
     d:DesignHeight="475" 
     d:DesignWidth="350">
     <Grid>
-        <Button x:Name="btn_worksheet" Content="Worksheet" Margin="252,402,0,0" Height="63" VerticalAlignment="Top" HorizontalAlignment="Left" Width="88"/>
+        <Button x:Name="btn_update" Content="Worksheet" Margin="252,402,0,0" Height="63" VerticalAlignment="Top" HorizontalAlignment="Left" Width="88" Click="btn_update_Click"/>
         <ListView x:Name="lv_colors" HorizontalAlignment="Left" Height="200" Margin="10,10,0,0" VerticalAlignment="Top" Width="150">
             <ListView.View>
                 <GridView>

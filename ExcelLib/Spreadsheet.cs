@@ -16,6 +16,8 @@ namespace ExcelLib
         #endregion
 
         #region Public
+        public Dictionary<Color, List<int>> ColorDict = new Dictionary<Color, List<int>>();
+        public List<Color> ColorList { get; private set; }
         #endregion
 
         #endregion
@@ -26,6 +28,9 @@ namespace ExcelLib
             // Initialize private fields
             _parent = parent;
             _sheetObj = WorksheetObj;
+
+            // Do the initial update
+            update();
         }
         #endregion
 
@@ -96,32 +101,6 @@ namespace ExcelLib
                 return cells;
             }
         }
-        public List<Color> ColorList
-        {
-            get
-            {
-                List<Color> cl = new List<Color>();
-                List<Cell> Cells = new List<Cell>();
-
-                foreach(Excel.Range cell in _sheetObj.UsedRange)
-                {
-                    if ((double)cell.Interior.Color != Colors.White.ToDouble())
-                    {
-                        Cells.Add(new Cell(cell));
-                    }
-                }
-
-                foreach(Cell cell in Cells)
-                {
-                    if (!cl.Contains(cell.Color))
-                    {
-                        cl.Add(cell.Color);
-                    }
-                }
-
-                return cl;
-            }
-        }
         #endregion
 
         #region Methods
@@ -132,6 +111,32 @@ namespace ExcelLib
         public bool isActive()
         {
             return _sheetObj == _parent.Control.App.ActiveSheet;
+        }
+
+        public void update()
+        {
+            // Create new Color list
+            List<Color> cl = new List<Color>();
+
+            // Go through each cell in the UsedRange
+            foreach (Excel.Range cell in _sheetObj.UsedRange)
+            {
+                // Check if each cell has a background color
+                if ((double)cell.Interior.Color != Colors.White.ToDouble())
+                {
+                    // Check if the color has already been added to the ColorList
+                    Color c = Color.getColor(cell);
+                    if (!cl.Contains(c))
+                    {
+                        // Add it to the ColorList
+                        cl.Add(c);
+                    }
+                }
+            }
+
+            // Update the ColorList
+            ColorList = cl;
+
         }
         public override string ToString()
         {
