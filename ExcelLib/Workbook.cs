@@ -16,6 +16,7 @@ namespace ExcelLib
         #region Private
         private ExcelControl _parent;
         private Excel.Workbook _WBObj;
+        private Excel.Window _WinObj;
         #endregion
 
         #region Public
@@ -25,6 +26,7 @@ namespace ExcelLib
         public string FileName { get; set; }
         public string FileExtension { get; set; }
         public string TempPath { get; set; }
+        public bool isShowing { get; private set; }
         #endregion
 
         #endregion
@@ -39,6 +41,7 @@ namespace ExcelLib
             // Initialize fields
             _WBObj = WorkbookObj;
             _parent = parent;
+            isShowing = false;
             Worksheets = new List<Spreadsheet>();
             
             // Populate Spreadsheet List
@@ -55,7 +58,8 @@ namespace ExcelLib
             setPath(fullPath);
             _WBObj = parent.App.Workbooks.Open(fullPath);
             _parent = parent;
-
+            isShowing = false;
+            _WinObj = _WBObj.Windows[1];
             Worksheets = new List<Spreadsheet>();
 
             // Populate Spreadsheet List
@@ -64,12 +68,7 @@ namespace ExcelLib
                 Worksheets.Add(new Spreadsheet(this, sheet));
             }
 
-            // Add event handler
-            //Control.App.WorkbookBeforeClose += WorkbookBeforeCloseHandler;
-            void WorkbookBeforeCloseHandler(Excel.Workbook Wb, ref bool Cancel)
-            {
-                //Cancel = true;
-            }
+            
         }
         #endregion
 
@@ -106,6 +105,16 @@ namespace ExcelLib
         public void Activate()
         {
             _WBObj.Activate();
+        }
+        public void Hide()
+        {
+            _WinObj.Visible = false;
+            isShowing = false;
+        }
+        public void Show()
+        {
+            _WinObj.Visible = true;
+            isShowing = true;
         }
         public bool isActive()
         {

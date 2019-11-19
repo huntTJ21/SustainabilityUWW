@@ -29,6 +29,7 @@ namespace SustainabilityDBM
         {
             tv.AddHandler(TreeView.SelectedItemChangedEvent, new RoutedPropertyChangedEventHandler<object>(SelectedItemChanged));
             btn_Add.AddHandler(Button.ClickEvent, new RoutedEventHandler(ClickAdd));
+            TreeView.ItemsSource = Global.Control.Workbooks;
         }
 
         public TreeView TreeView

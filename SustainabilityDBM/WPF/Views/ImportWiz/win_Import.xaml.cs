@@ -33,13 +33,13 @@ namespace SustainabilityDBM
 
         public void cleanupBeforeClose(object sender, EventArgs e)
         {
-            //frame.Content = null;
-            Global.Control.CleanupAndExit();
+            try { Global.Control.CleanupAndExit(); } catch { }
+            
         }
 
         ~win_Import()
         {
-            Global.Control.App.Quit();
+            try { Global.Control.App.Quit(); } catch { }
         }
     }
 }

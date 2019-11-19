@@ -30,6 +30,17 @@ namespace ExcelLib
                 Directory.Delete(@".\ExcelTemp", true);
             }
             Directory.CreateDirectory(@".\ExcelTemp");
+
+            // Add event handler for Workbook close
+            App.WorkbookBeforeClose += WorkbookBeforeCloseHandler;
+            void WorkbookBeforeCloseHandler(Excel.Workbook wb, ref bool Cancel)
+            {
+                // This function ensures that a dialog is not created after editing the open workbook.
+                // All changes will be automatically saved, as this is only a temporary copy of the file.
+                wb.Save();
+                Cancel = true;
+                App.Visible = false;
+            }
         }
 
         ~ExcelControl()
@@ -147,6 +158,11 @@ namespace ExcelLib
         }
         public void CleanupAndExit()
         {
+            // Cycle through all open workbooks and save them. They are just temp files ayway
+            foreach(Excel.Workbook wb in App.Workbooks)
+            {
+                wb.Save();
+            }
             // Make sure to quit the COM App or it will stay on in the background,
             //  causing file read errors and memory leaks.
             App.Quit();
