@@ -16,7 +16,9 @@ namespace ExcelLib
         #region Private
         private ExcelControl _parent;
         private Excel.Workbook _WBObj;
+        private Excel.Workbook _EditObj;
         private Excel.Window _WinObj;
+        private bool isOpen;
         #endregion
 
         #region Public
@@ -56,10 +58,11 @@ namespace ExcelLib
         {
             // Initialize fields
             setPath(fullPath);
-            _WBObj = parent.App.Workbooks.Open(fullPath);
+            _WBObj = parent.App.Workbooks.Open(fullPath, ReadOnly: true);
             _parent = parent;
-            isShowing = false;
             _WinObj = _WBObj.Windows[1];
+            isShowing = false;
+            isOpen = false;
             Worksheets = new List<Spreadsheet>();
 
             // Populate Spreadsheet List
@@ -67,8 +70,6 @@ namespace ExcelLib
             {
                 Worksheets.Add(new Spreadsheet(this, sheet));
             }
-
-            
         }
         #endregion
 
@@ -105,6 +106,43 @@ namespace ExcelLib
         public void Activate()
         {
             _WBObj.Activate();
+        }
+        public void Edit(bool show)
+        {
+            if (show)
+            {
+                // Check to make sure that the book is not already open
+                if (!isOpen)
+                {
+                    // save + close other open workbooks
+                    foreach(Excel.Workbook wb in Control.EditApp.Workbooks)
+                    {
+                        wb.Save();
+                        wb.Close();
+                    }
+                    _EditObj = Control.EditApp.Workbooks.Open(TempPath);
+                }
+
+            }
+            else
+            {
+                _EditObj.Save();
+                _EditObj.Close();
+                _WBObj.Close();
+                _WBObj = Control.App.Workbooks.Open(TempPath, ReadOnly: true);
+            }
+        }
+        public override bool Equals(object obj)
+        {
+            if(obj.GetType().Equals(typeof(Workbook)))
+            {
+                return base.Equals(obj);
+            }
+            else if (obj.GetType().Equals(typeof(Excel.Workbook)))
+            {
+                return _WBObj.Equals(obj);
+            }
+            else return base.Equals(obj);
         }
         public void Hide()
         {

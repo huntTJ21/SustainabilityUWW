@@ -14,6 +14,7 @@ namespace ExcelLib
     {
         #region Fields
         public Excel.Application App { get; }
+        public Excel.Application EditApp { get; }
         public List<Workbook> Workbooks { get; }
         #endregion
 
@@ -22,6 +23,7 @@ namespace ExcelLib
         {
             // Initialize members
             App = new Excel.Application();
+            EditApp = new Excel.Application();
             Workbooks = new List<Workbook>();
 
             // Set up temp directory
@@ -33,13 +35,27 @@ namespace ExcelLib
 
             // Add event handler for Workbook close
             App.WorkbookBeforeClose += WorkbookBeforeCloseHandler;
+            EditApp.WorkbookBeforeClose += EditBeforeCloseHandler;
             void WorkbookBeforeCloseHandler(Excel.Workbook wb, ref bool Cancel)
             {
                 // This function ensures that a dialog is not created after editing the open workbook.
                 // All changes will be automatically saved, as this is only a temporary copy of the file.
-                wb.Save();
-                Cancel = true;
+                //wb.Save();
+                Cancel = false;
                 App.Visible = false;
+            }
+
+            void EditBeforeCloseHandler(Excel.Workbook wb, ref bool Cancel)
+            {
+                wb.Save();
+                foreach (Workbook book in Workbooks)
+                {
+                    if (book.Equals(wb))
+                    {
+                        book.Edit(false);
+                    }
+                }
+                Cancel = false;
             }
         }
 
@@ -159,13 +175,14 @@ namespace ExcelLib
         public void CleanupAndExit()
         {
             // Cycle through all open workbooks and save them. They are just temp files ayway
-            foreach(Excel.Workbook wb in App.Workbooks)
+            foreach (Excel.Workbook wb in EditApp.Workbooks)
             {
                 wb.Save();
             }
             // Make sure to quit the COM App or it will stay on in the background,
             //  causing file read errors and memory leaks.
             App.Quit();
+            EditApp.Quit();
             // Make sure to clear temp directory
             while (App.Quitting) { }
             Directory.Delete(@".\ExcelTemp", true);
