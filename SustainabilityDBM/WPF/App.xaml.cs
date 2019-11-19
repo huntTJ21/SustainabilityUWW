@@ -16,6 +16,7 @@ namespace SustainabilityDBM
         public App()
         {
             //Global.init();
+            Global.DBFields = new List<string>() { "test", "test2", "ur", "mom", "gay" };
         }
     }
 }

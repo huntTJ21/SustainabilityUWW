@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace ExcelLib
@@ -133,6 +134,13 @@ namespace ExcelLib
         public int R { get; set; }
         public int G { get; set; }
         public int B { get; set; }
+        public int Hex
+        {
+            get
+            {
+                return ToHex();
+            }
+        }
         #endregion
 
         #region Constructors
@@ -184,6 +192,14 @@ namespace ExcelLib
             b[3] = 0;
             int i = BitConverter.ToInt32(b, 0);
             return i;
+        }
+        public int ToHex()
+        {
+            var hR = R * 256 * 256;
+            var hG = G * 256;
+            var hB = B;
+            var hex = R + G + B;
+            return hex;
         }
         public static Color getColor(Excel.Range cell)
         {

@@ -10,12 +10,19 @@
     d:DesignHeight="475" 
     d:DesignWidth="350">
     <Grid>
-        <Button x:Name="btn_update" Content="Worksheet" Margin="252,402,0,0" Height="63" VerticalAlignment="Top" HorizontalAlignment="Left" Width="88" Click="btn_update_Click"/>
-        <ListView x:Name="lv_colors" HorizontalAlignment="Left" Height="200" Margin="10,10,0,0" VerticalAlignment="Top" Width="150">
+        <Button x:Name="btn_update" Content="Update List" Margin="10,365,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="330" Click="btn_update_Click"/>
+        <Button x:Name="btn_open" Content="Open Worksheet" Margin="10,400,0,0" Height="46" VerticalAlignment="Top" HorizontalAlignment="Left" Width="330" Click="btn_open_Click"></Button>
+        <ListView x:Name="lv_colors" HorizontalAlignment="Left" Height="350" Margin="10,10,0,0" VerticalAlignment="Top" Width="330">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="50" Header="Color"/>
-                    <GridViewColumn Width="100" Header="Field">
+                    <GridViewColumn Width="55" Header="Color">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Width="40" Background="{Binding Path=Brush}" IsReadOnly="True"></TextBox>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="110" Header="Field">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <ComboBox Width="90" ItemsSource="{Binding Fields}"></ComboBox>

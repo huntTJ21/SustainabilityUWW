@@ -142,6 +142,8 @@ namespace SustainabilityDBM
             }
             else
             {
+                // Set UserControl up for ActiveSheet
+                uc_Worksheet.depopulateListView();
                 // Set UserControl Visibility to collapsed
                 uc_Worksheet.Visibility = Visibility.Collapsed;
             }
@@ -197,41 +199,71 @@ namespace SustainabilityDBM
         private void tv_sheetList_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             var obj = tv_sheetList.TreeView.SelectedItem;
-            if (obj.GetType().Equals(typeof(Workbook)))
+
+            if (obj.GetType().Equals(typeof(Spreadsheet)))
             {
-                // Set Active fields to selected item
-                //ActiveBook = (Workbook)obj;
-                //ActiveSheet = null;
+                // Hide User Controls
+                ShowWorksheetControls(false);
+                ShowWorkbookControls(false);
+
+                // Update Objects
+                Spreadsheet sheet = (Spreadsheet)obj;
+                bool visible = Control.App.Visible;
+                if(ActiveBook == null)
+                {
+                    sheet.Workbook.Activate();
+                    sheet.Workbook.Show();
+                }
+                if (ActiveBook != sheet.Workbook)
+                {
+                    ActiveBook.Hide();
+                    sheet.Workbook.Show();
+                }
+                Control.App.Visible = visible;
+                sheet.Activate();
+
+                // Set textboxes to their correct values
+                try {
+                    tb_wbName.Text = ActiveBook.FileName;
+                    tb_wsName.Text = ActiveSheet.Name;
+                    tb_wsName.IsEnabled = true;
+                }
+                catch
+                {
+                    tb_wbName.Text = "";
+                    tb_wsName.Text = "";
+                    tb_wsName.IsEnabled = true;
+                }
+
+                // Show User Control
+                ShowWorksheetControls(true);
+            }
+            else if (obj.GetType().Equals(typeof(Workbook)))
+            {
+                // Hide User Controls
+                ShowWorksheetControls(false);
+                ShowWorkbookControls(false);
+
+                // Update Objects
                 Workbook book = (Workbook)obj;
-                book.Control.App.Visible = true;
-                book.Activate();
+                if (ActiveBook != book)
+                {
+                    bool visible = Control.App.Visible;
+                    ActiveBook.Hide();
+                    book.Show();
+                    Control.App.Visible = visible;
+
+                }
+                while(ActiveBook != book) { /* do nothing */ }
 
                 // Set textboxes to their correct values
                 tb_wbName.Text = ActiveBook.FileName;
                 tb_wsName.Text = "";
                 tb_wsName.IsEnabled = false;
 
-                // Adjust visibility of User Controls
-                ShowWorksheetControls(false);
+                // Show User Control
                 ShowWorkbookControls(true);
-            }
-            else if (obj.GetType().Equals(typeof(Spreadsheet)))
-            {
-                // Set Active fields to selected item
-                //ActiveSheet = (Spreadsheet)obj;
-                //ActiveBook = ActiveSheet.Workbook;
-                Spreadsheet sheet = (Spreadsheet)obj;
-                sheet.Control.App.Visible = true;
-                sheet.Activate();
 
-                // Set textboxes to their correct values
-                tb_wbName.Text = ActiveBook.FileName;
-                tb_wsName.Text = ActiveSheet.Name;
-                tb_wsName.IsEnabled = true;
-
-                // Adjust visibility of User Controls
-                ShowWorkbookControls(false);
-                ShowWorksheetControls(true);
             }
         }
         #endregion
