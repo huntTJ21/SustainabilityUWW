@@ -69,8 +69,9 @@ namespace SustainabilityDBM
 
         private void btn_open_Click(object sender, RoutedEventArgs e)
         {
-            Global.HideActiveWindow();
-            Global.Control.App.Visible = true;
+            //Global.HideActiveWindow()
+            Global.ActiveBook.Edit(true);
+            Global.Control.EditApp.Visible = true;
         }
     }
 }
